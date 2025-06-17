@@ -1,9 +1,26 @@
 import TaskList from './components/TaskList.jsx';
 import './App.css';
 import TASKS from '../data.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
+const kBaseUrl = 'http://localhost:5000/';
 
+const getAllTasksApi = () => {
+  return axios.get(`${sBaseUrl}/tasks`)
+  .then( response => {
+    return response.data.map(converFromApi);
+  })
+  .catch( error => {
+    console.log(error);
+  });
+};
+
+const convertFromApi = () => {
+  const { id, title, description, completed_at} = apiTask;
+  const newTask = { id, title, description, completed_at};
+  return newTask;
+};
 
 const App = () => {
   //removed data and importing props
