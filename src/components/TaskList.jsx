@@ -3,7 +3,7 @@ import Task from './Task.jsx';
 import './TaskList.css';
 
 const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => { //accept funcs in props
-  const getTaskListJSX = (tasks) => {
+  const getTaskListJSX = (tasks = [] ) => {
     return tasks.map((task) => {
       return (
         <Task
@@ -11,8 +11,8 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => { //accept funcs in 
           id={task.id}
           title={task.title}
           isComplete={task.isComplete}
-          onToggle={onToggleTask} // calls App to toggle task complete
-          onDelete={onDeleteTask} // calls App to delete the task
+          onToggle={() => onToggleTask(task.id, task.isComplete)} // calls App to toggle task complete
+          onDelete={() => onDeleteTask(task.id)} // calls App to delete the task
         />
       );
     });

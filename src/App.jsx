@@ -2,8 +2,9 @@ import TaskList from './components/TaskList.jsx';
 import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm.jsx';
 
-const kBaseUrl = 'http://localhost:5000/';
+const kBaseUrl = 'http://localhost:5000';
 
 const getAllTasksApi = () => {
   return axios.get(`${kBaseUrl}/tasks`)
@@ -12,12 +13,13 @@ const getAllTasksApi = () => {
     })
     .catch( error => {
       console.log(error);
+      return [];
     });
 };
 
 const convertFromApi = (apiTask) => {
-  const { id, title, description, completed_at} = apiTask;
-  const newTask = { id, title, description, completedAt: completed_at};
+  const { id, title, description, is_complete} = apiTask;
+  const newTask = { id, title, description, is_complete};
   return newTask;
 };
 const App = () => {
@@ -52,6 +54,15 @@ const App = () => {
       .catch(error => console.log(error));
   };
 
+  //add new task func
+  const addTask = (newTask) => {
+    axios.post(`${kBaseUrl}/tasks`, newTask)
+      .then(() => {
+        getAllTasksApi().then(data => setTasks(data));
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -65,6 +76,7 @@ const App = () => {
             onDeleteTask={deleteTask}
           />
         </div>
+        <NewTaskForm onAddTask={addTask} />
       </main>
     </div>
   );
