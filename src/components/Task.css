@@ -41,3 +41,9 @@ button.tasks__item__remove {
   font-size: 100%;
   margin: 0;
 }
+
+.task-item--completed {
+  text-decoration: line-through;
+  color: gray;
+  background-color: #e0e0e0;
+}
