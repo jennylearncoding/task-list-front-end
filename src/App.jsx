@@ -19,7 +19,7 @@ const getAllTasksApi = () => {
 
 const convertFromApi = (apiTask) => {
   const { id, title, description, is_complete} = apiTask;
-  const newTask = { id, title, description, is_complete};
+  const newTask = { id, title, description, isComplete: is_complete};
   return newTask;
 };
 const App = () => {
@@ -72,7 +72,7 @@ const App = () => {
         <div>
           <TaskList
             tasks={tasks}
-            onToggleTask={(id, isComplete) => toggleTask(id, isComplete)}
+            onToggleTask={toggleTask}
             onDeleteTask={deleteTask}
           />
         </div>
