@@ -7,19 +7,27 @@ import axios from 'axios';
 const kBaseUrl = 'http://localhost:5000/';
 
 const getAllTasksApi = () => {
-  return axios.get(`${sBaseUrl}/tasks`)
-  .then( response => {
-    return response.data.map(converFromApi);
-  })
-  .catch( error => {
-    console.log(error);
-  });
+  return axios.get(`${kBaseUrl}/tasks`)
+    .then( response => {
+      return response.data.map(convertFromApi);
+    })
+    .catch( error => {
+      console.log(error);
+    });
 };
 
-const convertFromApi = () => {
+const convertFromApi = (apiTask) => {
   const { id, title, description, completed_at} = apiTask;
-  const newTask = { id, title, description, completed_at};
+  const newTask = { id, title, description, completedAt: completed_at};
   return newTask;
+};
+
+
+const removeTaskApi = (id) => {
+  return axios.delete(`${kBaseUrl}/tasks/${id}`)
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 const App = () => {
@@ -59,5 +67,7 @@ const App = () => {
     </div>
   );
 };
+
+
 
 export default App;
