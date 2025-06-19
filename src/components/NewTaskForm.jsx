@@ -1,5 +1,6 @@
 //new task form component
 import { useState } from 'react';
+import '../App.css';
 
 const NewTaskForm = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
@@ -16,7 +17,7 @@ const NewTaskForm = ({ onAddTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-inline">
       <input
         type="text"
         placeholder="Task Title"
